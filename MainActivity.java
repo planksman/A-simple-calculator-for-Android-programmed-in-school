@@ -14,6 +14,9 @@ public class MainActivity extends AppCompatActivity {
     private Button add, math;
     private TextView answer;
     private int MathMode = 1;
+    private int number1;
+    private int number2;
+
 
 
     @Override
@@ -52,24 +55,32 @@ public class MainActivity extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int number1 = Integer.parseInt(num1.getText().toString());
-                int number2 = Integer.parseInt(num2.getText().toString());
+                try {
+                    number1 = Integer.parseInt(num1.getText().toString());
+                    number2 = Integer.parseInt(num2.getText().toString());
+                }catch (Exception e) {
+                    num1.setError("You must write a number");
+                    num2.setError("You must write a number");
+                }
                 int sum = 0;
-                if (MathMode == 1) {
-                    sum = number1 + number2;
+                if (number1 > 1 && number2 > 1) {
+                    if (MathMode == 1) {
+                        sum = number1 + number2;
+                    } else if (MathMode == 2) {
+                        sum = number1 - number2;
+                    } else if (MathMode == 3) {
+                        sum = number1 * number2;
+                    } else if (MathMode == 4) {
+                        sum = number1 / number2;
+                    }
                 }
-                else if (MathMode == 2) {
-                    sum = number1 - number2;
-                }
-                else if (MathMode == 3) {
-                    sum = number1 * number2;
-                }
-                else if (MathMode == 4) {
-                    sum = number1 / number2;
+                else {
                 }
 
                 answer.setText("Answer: " + String.valueOf(sum));
             }
+
         });
+
     }
 }
